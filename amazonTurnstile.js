@@ -55,25 +55,18 @@ function turnstile (people, arrTime, directions) {
   var entranceQueue = [];
   var exitQueue = [];
   //create the output array
-  var index = 0;
   var output = [];
-  while (index < people) {
-    output.push(undefined)
-    index++;
-  }
 
   var dequeue = () => {
       if (direction === 1) {
         if (exitQueue.length > 0) {
-          var index = exitQueue[0];
-          output[index] = currentTime;
+          output[exitQueue[0]] = currentTime;
           p++;
           exitQueue.shift();
           currentTime++;
         } else if (entranceQueue.length > 0) {
-          var index = entranceQueue[0]
           direction = 0;
-          output[index] = currentTime;
+          output[entranceQueue[0]] = currentTime;
           p++;
           entranceQueue.shift();
           currentTime++;
@@ -82,15 +75,13 @@ function turnstile (people, arrTime, directions) {
         }
       } else if (direction === 0) {
         if (entranceQueue.length > 0) {
-          var index = entranceQueue[0]
-          output[index] = currentTime;
+          output[entranceQueue[0]] = currentTime;
           entranceQueue.shift();
           p++;
           currentTime++;
         } else if (exitQueue.length > 0) {
           direction = 1;
-          var index = exitQueue[0]
-          output[index] = currentTime;
+          output[exitQueue[0]] = currentTime;
           exitQueue.shift();
           p++;
           currentTime++;
@@ -103,7 +94,7 @@ function turnstile (people, arrTime, directions) {
   //iterate through the time
 
   var enqueue = () => {
-    for (var i = 0; i < arrTime.length; i++) {
+    for (var i = p; i < arrTime.length; i++) {
       if (arrTime[i] === currentTime) {
         if (directions[i] === 0) {
           //console.log('entrance before adding: ', entranceQueue)
